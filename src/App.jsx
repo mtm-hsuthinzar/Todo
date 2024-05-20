@@ -1,106 +1,103 @@
 import { useRef, useState } from "react";
 
 import {
-  AppBar,
-  Toolbar,
-  Box,
-  IconButton,
-  Typography,
-  List,
+	Box,
+	IconButton,
+	List,
+	OutlinedInput,
+	InputAdornment,
 } from "@mui/material";
 
-import { List as ListIcon } from "@mui/icons-material";
+import { Add as AddIcon } from "@mui/icons-material";
 
 import Item from "./Item";
+import Header from "./Header";
 
 export default function App() {
-  const inputRef = useRef();
+	const inputRef = useRef();
 
-  const [data, setData] = useState([
-    { id: 1, name: "Apple", done: true },
-    { id: 2, name: "Orange", done: false },
-    { id: 3, name: "Milk", done: false },
-  ]);
+	const [data, setData] = useState([
+		{ id: 1, name: "Apple", done: true },
+		{ id: 2, name: "Orange", done: false },
+		{ id: 3, name: "Milk", done: false },
+	]);
 
-  const remove = (id) => {
-    setData(data.filter((item) => item.id !== id));
-  };
+	const remove = id => {
+		setData(data.filter(item => item.id !== id));
+	};
 
-  const toggle = (id) => {
-    setData(
-      data.map((item) => {
-        if (item.id === id) item.done = !item.done;
-        return item;
-      })
-    );
-  };
+	const toggle = id => {
+		setData(
+			data.map(item => {
+				if (item.id === id) item.done = !item.done;
+				return item;
+			})
+		);
+	};
 
-  const add = (name) => {
-    const id = data[data.length - 1].id + 1;
-    setData([...data, { id, name, done: false }]);
-  };
+	const add = name => {
+		const id = data[data.length - 1].id + 1;
+		setData([...data, { id, name, done: false }]);
+	};
 
-  return (
-    <Box>
-      <AppBar position="static">
-        <Toolbar>
-          <ListIcon sx={{ mr: 2 }} />
-          <Typography variant="h6">Todo</Typography>
-        </Toolbar>
-      </AppBar>
+	return (
+		<Box>
+            <Header count={data.filter(item => !item.done).length} />
+			<Box sx={{ mx: "auto", maxWidth: "md", mt: 4 }}>
+				<form
+					onSubmit={e => {
+						e.preventDefault();
 
-      {/* <h1>Todo ({data.filter((item) => !item.done).length})</h1> */}
-      <Box sx={{ mx: "auto", maxWidth: "md", mt: 4 }}>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
+						const name = inputRef.current.value;
+						if (!name) return false;
 
-            const name = inputRef.current.value;
-            if (!name) return false;
+						add(name);
 
-            add(name);
-
-            inputRef.current.value = "";
-            inputRef.current.focus();
-          }}>
-
-          <input type="text" ref={inputRef} />
-          <button>Add</button>
-        </form>
-
-        <List>
-          {data
-            .filter((item) => !item.done)
-            .map((item) => {
-              return (
-                <Item
-                  key={item.id}
-                  item={item}
-                  remove={remove}
-                  toggle={toggle}
-                />
-              );
-            })}
-        </List>
-
-        <hr />
-
-        <List>
-          {data
-            .filter((item) => item.done)
-            .map((item) => {
-              return (
-                <Item
-                  key={item.id}
-                  item={item}
-                  remove={remove}
-                  toggle={toggle}
-                />
-              );
-            })}
-        </List>
-        
-      </Box>
-    </Box>
-  );
+						inputRef.current.value = "";
+						inputRef.current.focus();
+					}}>
+					<OutlinedInput
+						fullWidth
+						inputRef={inputRef}
+						endAdornment={
+							<InputAdornment>
+								<IconButton type="submit">
+									<AddIcon />
+								</IconButton>
+							</InputAdornment>
+						}
+					/>
+				</form>
+				<List>
+					{data
+						.filter(item => !item.done)
+						.map(item => {
+							return (
+								<Item
+									key={item.id}
+									item={item}
+									remove={remove}
+									toggle={toggle}
+								/>
+							);
+						})}
+				</List>
+				<hr />
+				<List>
+					{data
+						.filter(item => item.done)
+						.map(item => {
+							return (
+								<Item
+									key={item.id}
+									item={item}
+									remove={remove}
+									toggle={toggle}
+								/>
+							);
+						})}
+				</List>
+			</Box>
+		</Box>
+	);
 }
