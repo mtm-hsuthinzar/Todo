@@ -14,3 +14,7 @@ h1 {
   font-family: 'Times New Roman', Times, serif;
   color: #606060;
 }
+Header {
+  padding: 20px 10px;
+  background-color: rgb(219, 160, 219);
+}
