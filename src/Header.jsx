@@ -34,6 +34,7 @@ export default function Header({ count }) {
 					</IconButton>
 				)}
 			</Toolbar>
+			<Typography>Header 01</Typography>
 		</AppBar>
 	);
 }
