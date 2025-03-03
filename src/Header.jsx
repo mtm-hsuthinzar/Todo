@@ -21,7 +21,8 @@ export default function Header({ count }) {
 					color="error">
 					<ListIcon />
 				</Badge>
-				<Typography sx={{ ml: 2, flexGrow: 1 }}>Todo</Typography>
+				<Typography sx={{ ml: 2, flexGrow: 1 }}>Todo List Testing</Typography>
+				<Typography>Git Testing</Typography>
 
 				{mode === "dark" ? (
 					<IconButton onClick={() => setMode("light")}>
