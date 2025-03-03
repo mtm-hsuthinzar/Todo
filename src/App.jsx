@@ -133,6 +133,7 @@ export default function App() {
             })}
         </List>
       </Box>
+      <Footer />
     </Box>
   );
 }

@@ -1,0 +1,16 @@
+body {
+  background-color: #e898d0;
+  color: #000;
+}
+a {
+  text-decoration: none;
+  color: #ee0d0d;
+}
+a:hover {
+  color: #094609;
+}
+h1 {
+  font-size: 3rem;
+  font-family: 'Times New Roman', Times, serif;
+  color: #606060;
+}
